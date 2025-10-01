@@ -1,45 +1,76 @@
 <template>
-    <section>
-        <h3>Añadir Profesor</h3>
-        <div><label>Nombre:</label><input type="text" v-model="teacher.teacherName"></div>
-        <div><label>Apellidos:</label><input type="text" v-model="teacher.surname"></div>
-        <div><label>DNI / NIF:</label><input type="text" v-model="teacher.dni"></div>
-        <div><label>Materias:</label><input type="text" v-model="subject"><button v-on:click="handleSubject()">Agregar</button></div>
-        
-        <div>
-            <ul>
-                <li v-for="(elm, index) in teacher.subjects" :key="index">{{ elm }}</li>
-            </ul>
-        </div>
-        
-        <input type="checkbox" v-model="teacher.doc"/>Documentación Entregada
-        <button @click="handleAddTeacher()">Agregar</button>
-    </section>
+    <div class="container">
+        <section class="mb-5">
+            <h3>Añadir Profesor</h3>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Nombre</span>
+                <input type="text" class="form-control" v-model="teacher.teacherName">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Apellidos</span>
+                <input type="text" class="form-control" v-model="teacher.surname">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">DNI / NIF:</span>
+                <input type="text" class="form-control" v-model="teacher.dni">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Materias:</span>
+                <input type="text" class="form-control" v-model="subject">
+                <button class="btn btn-primary" v-on:click="handleSubject()">Agregar</button>
+            </div>
+            
+            <div>
+                <ul>
+                    <li v-for="(elm, index) in teacher.subjects" :key="index">{{ elm }}</li>
+                </ul>
+            </div>
+            
+            <div class="input-group mb-3">
+                <div class="align-content-center">
+                    <input type="checkbox" class="form-check-input" id="addDoc" v-model="teacher.doc"/>
+                    <label class="form-check-label mx-2" for="addDoc">Documentación Entregada</label>
+                </div>
+            </div>
 
-    <section>
-        <h3>Listado de profesores</h3>
-        <table>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>DNI / NIF</th>
-                <th>Materias</th>
-                <th>Documentación Entregada</th>
-            </tr>
-            <tr v-for="elm in teachers" :key="elm.dni">
-                <th>{{ elm.teacherName }}</th>
-                <th>{{ elm.surname }}</th>
-                <th>{{ elm.dni }}</th>
-                <th>
-                    <ul>
-                        <li v-for="(item, index) in elm.subjects" :key="index">{{ item }}</li>
-                    </ul>
-                </th>
-                <th v-if="elm.doc">Entregado</th>
-                <th v-else>No entregado</th>
-            </tr>
-        </table>
-    </section>
+            <div class="text-center">
+                <button class="btn btn-primary" @click="handleAddTeacher()">Agregar</button>
+            </div>
+        </section>
+
+        <section>
+            <h3>Listado de profesores</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">DNI / NIF</th>
+                        <th scope="col">Materias</th>
+                        <th scope="col">Documentación Entregada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="elm in teachers" :key="elm.dni">
+                        <td>{{ elm.teacherName }}</td>
+                        <td>{{ elm.surname }}</td>
+                        <td>{{ elm.dni }}</td>
+                        <td>
+                            <ul>
+                                <li v-for="(item, index) in elm.subjects" :key="index">{{ item }}</li>
+                            </ul>
+                        </td>
+                        <td v-if="elm.doc">Entregado</td>
+                        <td v-else>No entregado</td>
+                        <td>
+                            <button class="btn btn-danger">Eliminar</button>
+                            <button class="btn btn-warning mx-1">Editar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -83,5 +114,5 @@
 </script>
 
 <style scoped>
-
+    
 </style>
