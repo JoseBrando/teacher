@@ -51,7 +51,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="elm in teachers" :key="elm.dni">
+                    <tr v-for="(elm, idx) in teachers" :key="elm.dni">
                         <td>{{ elm.teacherName }}</td>
                         <td>{{ elm.surname }}</td>
                         <td>{{ elm.dni }}</td>
@@ -63,8 +63,8 @@
                         <td v-if="elm.doc">Entregado</td>
                         <td v-else>No entregado</td>
                         <td>
-                            <button class="btn btn-danger">Eliminar</button>
-                            <button class="btn btn-warning mx-1">Editar</button>
+                            <button class="btn btn-danger" @click="handleDeleteTeacher(idx)">Eliminar</button>
+                            <button class="btn btn-warning mx-1" @click="handleEditTeacher(idx)">Editar</button>
                         </td>
                     </tr>
                 </tbody>
@@ -77,6 +77,8 @@
     import { ref } from 'vue'
     import { Ref } from 'vue'
     import { ITeacher } from '@/interfaces/ITeacher'
+
+    let isEdit: number = -1
 
     let teacher:Ref<ITeacher> = ref({
         teacherName: '',
@@ -91,25 +93,61 @@
     let subject:Ref<string> = ref('')
 
     const handleSubject = () => {
-        teacher.value.subjects.push(subject.value)
-        subject.value = ""
+        if (subject.value.trim() == "") {
+            alert("Agregue una materia")
+        } else {
+            teacher.value.subjects.push(subject.value)
+            subject.value = ""
+        }
+        
     }
 
     const handleAddTeacher = () => {
-        teachers.value.push({
-            teacherName: teacher.value.teacherName,
-            surname: teacher.value.surname,
-            dni: teacher.value.dni,
-            subjects: teacher.value.subjects,
-            doc: teacher.value.doc 
-        })
-        
-        teacher.value.teacherName = ""
-        teacher.value.surname = ""
-        teacher.value.dni = ""
-        teacher.value.subjects = []
-        teacher.value.doc = false
+        if (teacher.value.teacherName.trim() == "" || teacher.value.surname.trim() == "" || 
+            teacher.value.dni.trim() == "" || teacher.value.subjects.length == 0) {
+            alert("Complete el formulario")
+        } else {
+            if (isEdit > -1) {
+                Object.assign(teachers.value[isEdit]!, {
+                    teacherName: teacher.value.teacherName,
+                    surname: teacher.value.surname,
+                    dni: teacher.value.dni,
+                    subjects: teacher.value.subjects,
+                    doc: teacher.value.doc
+                })
+            } else {
+                teachers.value.push({
+                    teacherName: teacher.value.teacherName,
+                    surname: teacher.value.surname,
+                    dni: teacher.value.dni,
+                    subjects: teacher.value.subjects,
+                    doc: teacher.value.doc 
+                })
+            }
+            
+            
+            teacher.value.teacherName = ""
+            teacher.value.surname = ""
+            teacher.value.dni = ""
+            teacher.value.subjects = []
+            teacher.value.doc = false
+        }
+    }
 
+    const handleDeleteTeacher = (idx: number) => {
+        teachers.value.splice(idx, 1)
+    }
+
+    const handleEditTeacher = (idx: number) => {
+        let element: ITeacher = teachers.value[idx]
+
+        teacher.value.teacherName = element.teacherName
+        teacher.value.surname = element.surname
+        teacher.value.dni = element.dni
+        teacher.value.subjects = element.subjects
+        teacher.value.doc = element.doc
+
+        isEdit = idx
     }
 </script>
 
