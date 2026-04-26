@@ -1,9 +1,13 @@
 name: Test Forzado
-on: 
-  workflow_dispatch: # Esto DEBE generar un botón azul
+
+on:
+  push:
+    branches: ["develop"]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "Si ves esto, el archivo está bien ubicado"
+      - name: Ejecutar saludo       # Opcional: le da un nombre visual al paso
+        run: echo "Hola desde GitHub Actions" # El guion '-' es obligatorio aquí
