@@ -1,0 +1,13 @@
+name: Test Forzado
+
+on:
+  push:
+    branches: ["develop"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ejecutar saludo       # Opcional: le da un nombre visual al paso
+        run: echo "Hola desde GitHub Actions" # El guion '-' es obligatorio aquí

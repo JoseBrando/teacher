@@ -29,7 +29,7 @@
             <div class="input-group mb-3">
                 <div class="align-content-center">
                     <input type="checkbox" class="form-check-input" id="addDoc" v-model="teacher.doc"/>
-                    <label class="form-check-label mx-2" for="addDoc">Documentación Entregada</label>
+                    <label class="form-check-label mx-2" for="addDoc">Documentación</label>
                 </div>
             </div>
 
