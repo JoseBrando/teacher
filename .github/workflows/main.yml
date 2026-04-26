@@ -1,13 +1,9 @@
-name: CI Saludo
-
-on:
-  push:
-    branches: ["develop"]
+name: Test Forzado
+on: 
+  workflow_dispatch: # Esto DEBE generar un botón azul
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Ejecutar saludo
-        run: echo "Hola desde GitHub Actions"
+      - run: echo "Si ves esto, el archivo está bien ubicado"
