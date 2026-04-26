@@ -9,5 +9,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      -name: Ejecutar saludo
-      run: echo "Hola desde GitHub Actions"
+      - name: Ejecutar saludo
+        run: echo "Hola desde GitHub Actions"
