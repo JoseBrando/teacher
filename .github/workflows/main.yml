@@ -1,0 +1,12 @@
+name: HelloWorld
+
+on:
+  push:
+    branches: ["develop"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      run: echo "Hola desde GitHub Actions"
