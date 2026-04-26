@@ -3,7 +3,6 @@ name: CI Saludo
 on:
   push:
     branches: ["develop"]
-  workflow_dispatch: # Esto permite ejecución manual
 
 jobs:
   build:
